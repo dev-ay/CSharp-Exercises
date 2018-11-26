@@ -11,8 +11,8 @@ namespace TryStringBuilder
         static void Main()
         {
             String A = "Hi! ";
-            String B = "StringBuilder is a library tool created by Microsoft, ";
-            String C = "using the C# language.";
+            String B = "StringBuilder is a library tool created by Microsoft using the C# language. ";
+            String C = "It allows for the efficient modification of String variables.";
 
             StringBuilder sb = new StringBuilder();
 
