@@ -112,19 +112,7 @@ namespace Iteration
             //9.Create a List of strings that has at least two identical strings in the List. Ask the user to select text to search for in the List.
             //      Create a loop that iterates through the list and then displays the indices of the array that contain matching text on the screen.
             //10.Add code to that above loop that tells a user if they put in text that isn’t in the List. 
-            List<string> days = new List<string>();            
-            days.Add("31");
-            days.Add("28");
-            days.Add("31");
-            days.Add("30");
-            days.Add("31");
-            days.Add("30");
-            days.Add("31");
-            days.Add("31");
-            days.Add("30");
-            days.Add("31");
-            days.Add("30");
-            days.Add("31");
+            List<string> days = new List<string>() {"31","28","31","30","31","30","31","31","30","31","30","31"};            
             Boolean match = false;
 
             Console.Write("Enter a number of days in the month to see which months in 2019 have that many days (i.e. 28, 30, 31): ");
