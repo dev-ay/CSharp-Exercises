@@ -10,12 +10,22 @@ namespace GameTwentyOne
     {
         static void Main(string[] args)
         {
-            GameTwentyOne game = new GameTwentyOne();
-            game.Dealer = "dev-ay";
-            game.Name = "Twenty One";
-            game.Players = new List<string>() { "Joe", "Jon", "Jane", "Jasmine" };
-            game.ListPlayers();
-            game.Play();
+
+
+
+            //Game game = new GameTwentyOne();
+            //game.Players = new List<Player>();
+            //Player player = new Player();
+            //player.Name = "dev-ay";
+            //game += player;
+            //game -= player;
+
+            //GameTwentyOne game = new GameTwentyOne();
+            //game.Dealer = "dev-ay";
+            //game.Name = "Twenty One";
+            //game.Players = new List<string>() { "Joe", "Jon", "Jane", "Jasmine" };
+            //game.ListPlayers();
+            //game.Play();
 
             Console.ReadLine();
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GameTwentyOne
 {
-    class Deck
+    public class Deck
     {
 
         public Deck()

@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{41CA5C22-9B08-4F7C-8425-05825BB07A87}</ProjectGuid>
+    <ProjectGuid>{62A47A57-1763-4CA1-A5EE-2EC85614DD34}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>GameTwentyOne</RootNamespace>
-    <AssemblyName>GameTwentyOne</AssemblyName>
+    <RootNamespace>OperatorOverloading</RootNamespace>
+    <AssemblyName>OperatorOverloading</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -43,13 +43,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Card.cs" />
-    <Compile Include="Dealer.cs" />
-    <Compile Include="Deck.cs" />
-    <Compile Include="Game.cs" />
-    <Compile Include="GameTwentyOne.cs" />
-    <Compile Include="IWalkAway.cs" />
-    <Compile Include="Player.cs" />
+    <Compile Include="Employee.cs" />
+    <Compile Include="Person.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
