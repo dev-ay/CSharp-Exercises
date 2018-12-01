@@ -9,32 +9,46 @@ namespace GameTwentyOne
     public class Deck
     {
 
+        public List<Card> Cards { get; set; }
+
         public Deck()
         {
             Cards = new List<Card>();
-            List<string> Suits = new List<string>() { "Clubs", "Hearts", "Diamonds", "Spades" };
-            List<string> Faces = new List<string>()
-            {
-                "Two","Three","Four","Five","Six","Seven","Eight","Nine","Ten","Jack","Queen","King","Ace"
-            };
 
-            foreach(string SingleSuit in Suits)
+            for(int i = 0; i < 4; i++)
             {
-                foreach(string SingleFace in Faces)
+                for(int j = 0; j < 13; j++)
                 {
-                    Card NewCard = new Card();
-                    NewCard.Suit = SingleSuit;
-                    NewCard.Face = SingleFace;
-                    Cards.Add(NewCard);
+                    Card card = new Card();
+                    card.Suit = (Suit)i;
+                    card.Face = (Face)j;
+                    Cards.Add(card);
                 }
+                           
             }
+                
+            //List<string> Suits = new List<string>() { "Clubs", "Hearts", "Diamonds", "Spades" };
+            //List<string> Faces = new List<string>()
+            //{
+            //    "Two","Three","Four","Five","Six","Seven","Eight","Nine","Ten","Jack","Queen","King","Ace"
+            //};
+
+            //foreach(string SingleSuit in Suits)
+            //{
+            //    foreach(string SingleFace in Faces)
+            //    {
+            //        Card NewCard = new Card();
+            //        NewCard.Suit = SingleSuit;
+            //        NewCard.Face = SingleFace;
+            //        Cards.Add(NewCard);
+            //    }
+            //}
 
 
 
 
         }
 
-        public List<Card> Cards { get; set; }
 
 
         public void Shuffle(out int timesShuffled, out string test, int times = 1)

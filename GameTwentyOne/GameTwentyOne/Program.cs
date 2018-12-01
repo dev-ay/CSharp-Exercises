@@ -27,7 +27,7 @@ namespace GameTwentyOne
             //game.ListPlayers();
             //game.Play();
 
-            Console.ReadLine();
+            //Console.ReadLine();
 
 
             Deck NewDeck = new Deck();
