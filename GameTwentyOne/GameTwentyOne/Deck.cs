@@ -49,6 +49,24 @@ namespace GameTwentyOne
 
         }
 
+        public void Shuffle(int times = 1)
+        {
+            for (int i = 0; i < times; i++)
+            {
+                List<Card> TempList = new List<Card>();
+                Random R = new Random();
+
+                while (Cards.Count > 0)
+                {
+                    int randomIndex = R.Next(0, Cards.Count);
+                    TempList.Add(Cards[randomIndex]);
+                    Cards.RemoveAt(randomIndex);
+
+                }
+                Cards = TempList;
+            }
+
+        }
 
 
         public void Shuffle(out int timesShuffled, out string test, int times = 1)

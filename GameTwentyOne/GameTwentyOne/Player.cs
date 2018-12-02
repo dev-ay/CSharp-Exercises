@@ -8,10 +8,31 @@ namespace GameTwentyOne
 {
     public class Player
     {
-        public List<Card> Hand { get; set; }
+        private List<Card> _hand = new List<Card>();
+        public List<Card> Hand { get { return _hand; } set { _hand = value; } }
         public int Balance { get; set; }
         public string Name { get; set; }
         public bool isActivelyPlaying { get; set; }
+        public bool Stay { get; set; }
+
+        public Player(string name, int beginningBalance)
+        {
+            Hand = new List<Card>();
+            Balance = beginningBalance;
+            Name = name;
+        }
+
+        public bool Bet(int amount)
+        {
+            if(Balance - amount < 0)
+            {
+                Console.WriteLine("You do not have enought to place a bet that size.");
+                return false;
+            }
+            return true;
+        }
+
+       
 
         public static Game operator+ (Game game, Player player)
         {
