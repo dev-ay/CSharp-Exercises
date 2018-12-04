@@ -20,6 +20,7 @@ namespace GameTwentyOne
             Console.WriteLine(card);
             using (StreamWriter file = new StreamWriter(@"C:\Users\Student\Desktop\GitHub\CSharp-Exercises\GameTwentyOne\GameTwentyOne\log.txt",true))
             {
+                file.WriteLine(DateTime.Now);
                 file.WriteLine(card);
             }
                 Deck.Cards.RemoveAt(0);

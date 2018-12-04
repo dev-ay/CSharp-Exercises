@@ -12,6 +12,12 @@ namespace GameTwentyOne
         static void Main(string[] args)
         {
             /*
+            DateTime timeOfBirth = new DateTime(1995, 5, 23, 8, 32, 45);
+            DateTime timeOfGraduation = new DateTime(2013, 6, 1, 16, 34, 22);
+            TimeSpan ageAtGraduation = timeOfGraduation - timeOfBirth;
+            */
+            
+            /*
             string text = "Welcome to the Grand Hotel and Casino.\r\nLet's start by telling me your name:";
             File.WriteAllText(@"C:\Users\Student\Desktop\GitHub\CSharp-Exercises\GameTwentyOne\GameTwentyOne\log.txt", text);
             text = File.ReadAllText(@"C:\Users\Student\Desktop\GitHub\CSharp-Exercises\GameTwentyOne\GameTwentyOne\log.txt");
