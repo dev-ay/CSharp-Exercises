@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,15 @@ namespace GameTwentyOne
     {
         static void Main(string[] args)
         {
+            /*
+            string text = "Welcome to the Grand Hotel and Casino.\r\nLet's start by telling me your name:";
+            File.WriteAllText(@"C:\Users\Student\Desktop\GitHub\CSharp-Exercises\GameTwentyOne\GameTwentyOne\log.txt", text);
+            text = File.ReadAllText(@"C:\Users\Student\Desktop\GitHub\CSharp-Exercises\GameTwentyOne\GameTwentyOne\log.txt");
+            Console.WriteLine(text);
+            */
+
+
+
 
             Console.WriteLine("Welcome to the Grand Hotel and Casino. ");
             Console.WriteLine();
