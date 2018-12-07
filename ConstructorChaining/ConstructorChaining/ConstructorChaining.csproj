@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{41CA5C22-9B08-4F7C-8425-05825BB07A87}</ProjectGuid>
+    <ProjectGuid>{55A03547-287D-412B-84A0-4EF9DD5064F1}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>GameTwentyOne</RootNamespace>
-    <AssemblyName>GameTwentyOne</AssemblyName>
+    <RootNamespace>ConstructorChaining</RootNamespace>
+    <AssemblyName>ConstructorChaining</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -43,18 +43,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Card.cs" />
-    <Compile Include="Dealer.cs" />
-    <Compile Include="DealerTwentyOne.cs" />
-    <Compile Include="Deck.cs" />
-    <Compile Include="FraudException.cs" />
-    <Compile Include="Game.cs" />
-    <Compile Include="GameTwentyOne.cs" />
-    <Compile Include="IWalkAway.cs" />
-    <Compile Include="Player.cs" />
+    <Compile Include="Circle.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RulesTwentyOne.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

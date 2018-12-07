@@ -24,11 +24,25 @@ namespace GameTwentyOne
             Dealer.Deck.Shuffle();
 
             //Take bets from all players
-            Console.Write("Place your bet! ... ");
+            
 
             foreach(Player player in Players)
             {
-                int bet = Convert.ToInt32(Console.ReadLine());
+                bool validAnswer = false;
+                int bet = 0;
+
+                while (!validAnswer)
+                {
+                    Console.Write("Place your bet! ... ");
+                    validAnswer = int.TryParse(Console.ReadLine(),out bet);
+                    //int bet = Convert.ToInt32(Console.ReadLine());
+                    if (!validAnswer) Console.WriteLine("\nPlease enter digits only, no decimals\n");
+                }
+
+                if (bet < 0)
+                {
+                    throw new FraudException("\nSecurity!!  Kick this person out!");
+                }
                 bool successfullyBet = player.Bet(bet);
                 if (!successfullyBet)
                 {
@@ -172,7 +186,6 @@ namespace GameTwentyOne
 
                             return;
 
-                            return;
                         }
 
                     }

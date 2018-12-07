@@ -14,12 +14,14 @@ namespace GameTwentyOne
         public string Name { get; set; }
         public bool isActivelyPlaying { get; set; }
         public bool Stay { get; set; }
+        public Guid ID { get; set; }
 
         public Player(string name, int beginningBalance)
         {
             Hand = new List<Card>();
             Balance = beginningBalance;
             Name = name;
+            ID = Guid.NewGuid();
         }
 
         public bool Bet(int amount)

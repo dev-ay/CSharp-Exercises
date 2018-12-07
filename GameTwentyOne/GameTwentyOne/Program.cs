@@ -32,8 +32,28 @@ namespace GameTwentyOne
             Console.Write("Let's start by telling me your Name:  ");
             string playerName = Console.ReadLine();
             Console.WriteLine();
-            Console.Write("And how much money did you bring today?  ");
-            int bank  = Convert.ToInt32( Console.ReadLine() );
+
+            bool validAnswer = false;
+            int bank = 0;
+            while(!validAnswer)
+            {
+                Console.Write("And how much money did you bring today?  ");
+                validAnswer = int.TryParse(Console.ReadLine(), out bank);
+                //bank = Convert.ToInt32(Console.ReadLine());
+                if (!validAnswer) Console.WriteLine("\nPlease enter digits only, no decimals...\n");
+                if (bank <= 0)
+                {
+                    Console.WriteLine("\nYou have insufficient funds to play.\n");
+                    validAnswer = false;
+                    Console.ReadLine();
+                    return;
+                }
+
+            }
+
+
+
+
             Console.WriteLine();
             Console.Write("Hello, {0}.  Would you like to join a game of 21 right now?  ",playerName);
             string answer = Console.ReadLine().ToLower();
@@ -47,8 +67,24 @@ namespace GameTwentyOne
                 player.isActivelyPlaying = true;
                 while(player.isActivelyPlaying && player.Balance > 0)
                 {
-                    game.Play();
-                    //Console.WriteLine("Would you like to keep playing?");
+                    try
+                    {
+                        game.Play();
+                        //Console.WriteLine("Would you like to keep playing?");
+                    }
+                    catch (FraudException e)
+                    {
+                        Console.WriteLine(e.Message);
+                        //Console.WriteLine("Security!!  Kick this person out!");
+                        Console.ReadLine();
+                        return;
+                    }
+                    catch (Exception)
+                    {
+                        
+                        Console.WriteLine("\nAn error occurred.  Please contact your system administrator.\n");
+                    }
+                    
 
                 }
                 game -= player;
