@@ -41,7 +41,7 @@ namespace GameTwentyOne
 
                 if (bet < 0)
                 {
-                    throw new FraudException("\nSecurity!!  Kick this person out!");
+                    throw new FraudException("Security!!  Kick this person out!");
                 }
                 bool successfullyBet = player.Bet(bet);
                 if (!successfullyBet)

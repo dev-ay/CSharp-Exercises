@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.SqlClient;
+using System.Data;
 
 namespace GameTwentyOne
 {
@@ -33,6 +35,21 @@ namespace GameTwentyOne
             string playerName = Console.ReadLine();
             Console.WriteLine();
 
+            if(playerName.ToLower() == "admin")
+            {
+                List<ExceptionEntity> Exceptions = ReadExceptions();
+                foreach (var exception in Exceptions)
+                {
+                    Console.Write(exception.Id + " | ");
+                    Console.Write(exception.ExceptionType + " | ");
+                    Console.Write(exception.ExceptionMessage + " | ");
+                    Console.Write(exception.TimeStamp);
+                    Console.WriteLine();
+                }
+                Console.ReadLine();
+                return;
+            }
+
             bool validAnswer = false;
             int bank = 0;
             while(!validAnswer)
@@ -41,13 +58,17 @@ namespace GameTwentyOne
                 validAnswer = int.TryParse(Console.ReadLine(), out bank);
                 //bank = Convert.ToInt32(Console.ReadLine());
                 if (!validAnswer) Console.WriteLine("\nPlease enter digits only, no decimals...\n");
-                if (bank <= 0)
+                else
                 {
-                    Console.WriteLine("\nYou have insufficient funds to play.\n");
-                    validAnswer = false;
-                    Console.ReadLine();
-                    return;
+                    if (bank <= 0)
+                    {
+                        Console.WriteLine("\nYou have insufficient funds to play.\n");
+                        validAnswer = false;
+                        Console.ReadLine();
+                        return;
+                    }
                 }
+
 
             }
 
@@ -74,15 +95,19 @@ namespace GameTwentyOne
                     }
                     catch (FraudException e)
                     {
+                        Console.WriteLine();
                         Console.WriteLine(e.Message);
                         //Console.WriteLine("Security!!  Kick this person out!");
+                        UpdateDbWithException(e);
                         Console.ReadLine();
                         return;
                     }
-                    catch (Exception)
+                    catch (Exception e)
                     {
                         
                         Console.WriteLine("\nAn error occurred.  Please contact your system administrator.\n");
+                        UpdateDbWithException(e);
+                        Console.ReadLine();
                     }
                     
 
@@ -143,6 +168,73 @@ namespace GameTwentyOne
             //Console.ReadLine();
 
         }
+
+        private static void UpdateDbWithException(Exception e)
+        {
+            string connectionString = @"Data Source=(localdb)\ProjectsV13;Initial Catalog=GameTwentyOne;
+                                        Integrated Security=True;Connect Timeout=30;Encrypt=False;
+                                        TrustServerCertificate=False;ApplicationIntent=ReadWrite;
+                                        MultiSubnetFailover=False";
+
+            string queryString = "INSERT INTO Exceptions (ExceptionType, ExceptionMessage, TimeStamp) " +
+                "VALUES (@ExceptionType, @ExceptionMessage, @TimeStamp)";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(queryString, connection);
+                command.Parameters.Add("@ExceptionType", SqlDbType.VarChar);
+                command.Parameters.Add("@ExceptionMessage", SqlDbType.VarChar);
+                command.Parameters.Add("@TimeStamp", SqlDbType.DateTime);
+
+                command.Parameters["@ExceptionType"].Value = e.GetType().ToString();
+                command.Parameters["@ExceptionMessage"].Value = e.Message;
+                command.Parameters["@TimeStamp"].Value = DateTime.Now;
+
+                connection.Open();
+                command.ExecuteNonQuery();
+                connection.Close();
+            }
+
+        }
+
+        private static List<ExceptionEntity> ReadExceptions()
+        {
+            string connectionString = @"Data Source=(localdb)\ProjectsV13;Initial Catalog=GameTwentyOne;
+                                        Integrated Security=True;Connect Timeout=30;Encrypt=False;
+                                        TrustServerCertificate=False;ApplicationIntent=ReadWrite;
+                                        MultiSubnetFailover=False";
+
+            string queryString = @"Select Id, ExceptionType, ExceptionMessage, TimeStamp FROM Exceptions";
+
+            List<ExceptionEntity> Exceptions = new List<ExceptionEntity>();
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(queryString, connection);
+
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    ExceptionEntity exception = new ExceptionEntity();
+                    exception.Id = Convert.ToInt32(reader["Id"]);
+                    exception.ExceptionType = reader["ExceptionType"].ToString();
+                    exception.ExceptionMessage = reader["ExceptionMessage"].ToString();
+                    exception.TimeStamp = Convert.ToDateTime(reader["TimeStamp"]);
+                    Exceptions.Add(exception);
+                }
+
+                connection.Close();
+
+                
+
+
+            }
+
+            return Exceptions;
+        }
+
 
         //public static Deck Shuffle(Deck SingleDeck)
         //{
