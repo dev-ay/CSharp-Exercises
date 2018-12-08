@@ -41,6 +41,8 @@ namespace GameTwentyOne
                 foreach (var exception in Exceptions)
                 {
                     Console.Write(exception.Id + " | ");
+                    Console.Write(exception.Name + " | ");
+                    Console.Write("{0:C} | ", exception.Bet);
                     Console.Write(exception.ExceptionType + " | ");
                     Console.Write(exception.ExceptionMessage + " | ");
                     Console.Write(exception.TimeStamp);
@@ -98,7 +100,7 @@ namespace GameTwentyOne
                         Console.WriteLine();
                         Console.WriteLine(e.Message);
                         //Console.WriteLine("Security!!  Kick this person out!");
-                        UpdateDbWithException(e);
+                        UpdateDbWithException(e, player, game);
                         Console.ReadLine();
                         return;
                     }
@@ -106,7 +108,7 @@ namespace GameTwentyOne
                     {
                         
                         Console.WriteLine("\nAn error occurred.  Please contact your system administrator.\n");
-                        UpdateDbWithException(e);
+                        UpdateDbWithException(e, player, game);
                         Console.ReadLine();
                     }
                     
@@ -169,23 +171,27 @@ namespace GameTwentyOne
 
         }
 
-        private static void UpdateDbWithException(Exception e)
+        private static void UpdateDbWithException(Exception e, Player player, Game game)
         {
             string connectionString = @"Data Source=(localdb)\ProjectsV13;Initial Catalog=GameTwentyOne;
                                         Integrated Security=True;Connect Timeout=30;Encrypt=False;
                                         TrustServerCertificate=False;ApplicationIntent=ReadWrite;
                                         MultiSubnetFailover=False";
 
-            string queryString = "INSERT INTO Exceptions (ExceptionType, ExceptionMessage, TimeStamp) " +
-                "VALUES (@ExceptionType, @ExceptionMessage, @TimeStamp)";
+            string queryString = "INSERT INTO Exceptions (Name, Bet, ExceptionType, ExceptionMessage, TimeStamp) " +
+                "VALUES (@Name, @Bet, @ExceptionType, @ExceptionMessage, @TimeStamp)";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 SqlCommand command = new SqlCommand(queryString, connection);
+                command.Parameters.Add("@Name", SqlDbType.VarChar);
+                command.Parameters.Add("@Bet", SqlDbType.Int);
                 command.Parameters.Add("@ExceptionType", SqlDbType.VarChar);
                 command.Parameters.Add("@ExceptionMessage", SqlDbType.VarChar);
                 command.Parameters.Add("@TimeStamp", SqlDbType.DateTime);
 
+                command.Parameters["@Name"].Value = player.Name;
+                command.Parameters["@Bet"].Value = game.Bets[player];
                 command.Parameters["@ExceptionType"].Value = e.GetType().ToString();
                 command.Parameters["@ExceptionMessage"].Value = e.Message;
                 command.Parameters["@TimeStamp"].Value = DateTime.Now;
@@ -204,7 +210,7 @@ namespace GameTwentyOne
                                         TrustServerCertificate=False;ApplicationIntent=ReadWrite;
                                         MultiSubnetFailover=False";
 
-            string queryString = @"Select Id, ExceptionType, ExceptionMessage, TimeStamp FROM Exceptions";
+            string queryString = @"Select Id, Name, Bet, ExceptionType, ExceptionMessage, TimeStamp FROM Exceptions";
 
             List<ExceptionEntity> Exceptions = new List<ExceptionEntity>();
 
@@ -219,6 +225,9 @@ namespace GameTwentyOne
                 {
                     ExceptionEntity exception = new ExceptionEntity();
                     exception.Id = Convert.ToInt32(reader["Id"]);
+
+                    exception.Name = reader["Name"].ToString();
+                    exception.Bet = Convert.ToInt32(reader["Bet"]);
                     exception.ExceptionType = reader["ExceptionType"].ToString();
                     exception.ExceptionMessage = reader["ExceptionMessage"].ToString();
                     exception.TimeStamp = Convert.ToDateTime(reader["TimeStamp"]);
