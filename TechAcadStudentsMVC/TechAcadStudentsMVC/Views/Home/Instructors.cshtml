@@ -1,0 +1,48 @@
+﻿@using TechAcadStudentsMVC.Models
+@model List<Instructor>
+@{
+    ViewBag.Title = "Instructors";
+}
+
+<h2>Instructors</h2>
+
+
+@{ 
+    foreach(Instructor instructor in Model)
+    {
+        <h4>@instructor.FirstName, @instructor.LastName, ID = @instructor.Id</h4>
+    }
+}
+
+<br />
+<h4>A</h4><h4>B</h4><h4>C</h4>
+<br />
+@{
+    string text = "";
+    foreach (Instructor instructor in Model)
+    {
+        
+         text += instructor.FirstName + ", ";
+    }
+    <h4>@text</h4>
+}
+<br />
+<h4>@Model.Count</h4>
+<br />
+
+@{ 
+    text = "";
+    for(int i = 0; i<Model.Count; i++)
+    {
+        text += Model[i].FirstName;
+        if (i < Model.Count - 2)
+        {
+            text += ", ";
+        }
+        else if (i == Model.Count - 2)
+        {
+            text += ", and ";
+        }
+    }
+    <h4>@text</h4>
+}
