@@ -24,7 +24,11 @@ namespace ExceptionHandling2
                         validResponse = false;
                         throw new AgeException("\nYou have entered a negative number for age.  Please try again...\n");
                     }
-                    else if (age == 0) throw new AgeException("\nYou have entered 0 for age.  Please try again...\n");
+                    else if (age == 0)
+                    {
+                        validResponse = false;
+                        throw new AgeException("\nYou have entered 0 for age.  Please try again...\n");
+                    }
                     else
                     {
                         int now = DateTime.Now.Year;
@@ -32,7 +36,9 @@ namespace ExceptionHandling2
 
                     }
                 }
-                catch (AgeException) { }
+                catch (AgeException ae) {
+                    Console.WriteLine(ae.Message);
+                }
                 catch (Exception)
                 {
                     Console.WriteLine("\nSorry, something unexpected has occurred with the program.  Please contact your System Administrator.");
