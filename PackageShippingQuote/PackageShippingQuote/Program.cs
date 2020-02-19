@@ -46,7 +46,7 @@ namespace PackageShippingQuote
 
             double quote = dimensions * weight / 100;
 
-            Console.WriteLine("Your estimated total for shipping this package is: {0:C}", quote);
+            Console.WriteLine("Your estimated total for shipping this package is: {0:C}", quote);  //or {decimal}.ToString("C")
             Console.WriteLine();
             Console.Write("Thank you.");
 

@@ -1,0 +1,10 @@
+﻿{
+  "current_season": "4",
+  "season_productions": {
+    "fall": "1",
+    "winter": "2",
+    "spring": "3"
+  },
+  "recent_definition": null,
+  "onstage": "Hello World"
+}
